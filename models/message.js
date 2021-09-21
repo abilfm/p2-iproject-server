@@ -14,10 +14,54 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Message.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    subject: DataTypes.STRING,
-    message: DataTypes.TEXT
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: true,
+        notEmpty: {
+          args: true,
+          msg: "Name is required"
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isEmail: {
+          args: true,
+          msg: "Invalid email format"
+        },
+        notNull: true,
+        notEmpty: {
+          args: true,
+          msg: "Email is required"
+        }
+      }
+    },
+    subject: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: true,
+        notEmpty: {
+          args: true,
+          msg: "Subject is required"
+        }
+      }
+    },
+    message: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notNull: true,
+        notEmpty: {
+          args: true,
+          msg: "Message is required"
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Message',
