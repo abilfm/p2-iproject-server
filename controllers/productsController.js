@@ -4,9 +4,7 @@ class ControllerProducts {
   static async findAll(req, res, next)  {
     try {
       const allProducts = await Product.findAll({
-        attributes: {
-          exclude: [ "createdAt", "updatedAt" ]
-        }
+        attributes: { exclude: [ "createdAt", "updatedAt" ] }
       })
       res.status(200).json(allProducts)
     } catch (err) {
@@ -16,7 +14,8 @@ class ControllerProducts {
 
   static async findAllByCategory(req, res, next)  {
     try {
-      const allProductsByCategory = await Product.findAll({ where: { CategoryId: req.params.categoryId }})
+      const allProductsByCategory = await Product.findAll({ 
+        where: { CategoryId: req.params.categoryId }})
       if (allProductsByCategory.length === 0) {
         throw { name: "NOTFOUND_Category" }
       } else {
@@ -34,7 +33,8 @@ class ControllerProducts {
         {
           CategoryId: req.params.categoryId,
           id: req.params.id
-        }
+        },
+        attributes: { exclude: [ "createdAt", "updatedAt" ] }
       })
 
       if (specifiedProduct) {
@@ -64,7 +64,7 @@ class ControllerProducts {
 
     try {
       const newProduct = await Product.create(dataProduct)
-      res.status(200).json(newProduct)
+      res.status(201).json(newProduct)
     } catch (err) {
       next (err)
     }
@@ -107,7 +107,6 @@ class ControllerProducts {
       } else {
         throw { name: "NOTFOUND_Product" }
       }
-      res.send('DELETE Products')
     } catch (err) {
       next(err)
     }
