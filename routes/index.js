@@ -1,6 +1,7 @@
 const express = require('express')
 const controllerMessages = require('../controllers/messagesController.js')
 const controllerProducts = require('../controllers/productsController.js')
+const errorHandler = require('../middlewares/errorHandler.js')
 const router = express.Router()
 
 router.get('/products', controllerProducts.findAll)
@@ -12,5 +13,7 @@ router.delete('/products/:id', controllerProducts.delete)
 
 router.post('/messages', controllerMessages.create)
 router.delete('/messages/:id', controllerMessages.delete)
+
+router.use(errorHandler)
   
 module.exports = router
