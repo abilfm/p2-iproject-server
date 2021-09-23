@@ -19,8 +19,11 @@
   "homepage": "https://github.com/abilfm/p2-iproject-server#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "countapi-js": "^1.0.2",
     "express": "^4.17.1",
+    "nodemailer": "^6.6.5",
     "pg": "^8.7.1",
-    "sequelize": "^6.6.5"
+    "sequelize": "^6.6.5",
+    "socket.io": "^4.2.0"
   }
 }

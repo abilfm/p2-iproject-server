@@ -1,4 +1,5 @@
 const { Product } = require('../models/index.js')
+const nodemailer = require('nodemailer')
 
 class ControllerProducts {
   static async findAll(req, res, next)  {
@@ -65,6 +66,28 @@ class ControllerProducts {
     try {
       const newProduct = await Product.create(dataProduct)
       res.status(201).json(newProduct)
+
+      let testAccount = await nodemailer.createTestAccount()
+      let transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false,
+        auth: 
+          {
+            user: testAccount.user,
+            pass: testAccount.pass
+          }
+      })
+
+      let info = await transporter.sendMail({
+        from: "admin_fmskincarea@mail.com",
+        to: "user@mail.com",
+        subject: "New Product in FMSKINCAREA",
+        text: "New Product",
+        html: "<b>Hello world?</b>"
+      })
+
+      nodemailer.getTestMessageUrl(info)
     } catch (err) {
       next (err)
     }
